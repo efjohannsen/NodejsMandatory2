@@ -1,4 +1,5 @@
-
+# NodejsMandatory2
+Project for Node.js mandatory 2 hand-in
 
 Create an auth system. 
 Why? Because it will be part of the exam project
