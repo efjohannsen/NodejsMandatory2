@@ -1,0 +1,22 @@
+{
+  "name": "nodejsmandatory2",
+  "version": "1.0.0",
+  "description": "NodeJS Mandatory 2 assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/efjohannsen/NodejsMandatory2.git"
+  },
+  "author": "Esben, Andreas & Tariq",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/efjohannsen/NodejsMandatory2/issues"
+  },
+  "homepage": "https://github.com/efjohannsen/NodejsMandatory2#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
