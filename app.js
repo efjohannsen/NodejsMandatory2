@@ -22,6 +22,10 @@ app.get("/page3", (req, res) => {
     return res.sendFile(__dirname + "/public/html/page3.html");
 });
 
+app.get("/register", (req, res) => {
+    return res.sendFile(__dirname + "/public/html/register.html");
+});
+
 const port = process.env.PORT || 9090; 
 
 app.listen(port, (error) => {
