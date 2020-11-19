@@ -2,12 +2,16 @@
 const express = require("express");
 //instancierer express modulet
 const app = express();
-
+//giver brugere adgang til filerne i mappen public
 app.use(express.static("public"));
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere.
 app.get("/index", (req, res) => {
     return res.sendFile(__dirname + "/public/html/index.html");
+});
+
+app.get("/", (req, res) => {
+    return res.redirect("/index");
 });
 
 app.get("/page1", (req, res) => {
