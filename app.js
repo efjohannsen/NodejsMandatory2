@@ -10,6 +10,7 @@ app.get("/index", (req, res) => {
     return res.sendFile(__dirname + "/public/html/index.html");
 });
 
+//redirect HTTP request handler
 app.get("/", (req, res) => {
     return res.redirect("/index");
 });
@@ -30,13 +31,12 @@ app.get("/register", (req, res) => {
     return res.sendFile(__dirname + "/public/html/register.html");
 });
 
-const port = process.env.PORT || 9090; 
+const port = process.env.PORT || 9090;
 
 app.listen(port, (error) => {
-    if(error){
+    if(error) {
         console.log("Port error: " + error);
-    }
-    else{
+    } else {
         console.log(`Server running on port: ${port}`);
     }
 });
