@@ -7,7 +7,7 @@ app.use(express.static("public"));
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/index", (req, res) => {
-    return res.sendFile(__dirname + "/public/html/index/index.html");
+    return res.sendFile(__dirname + "/public/html/index.html");
 });
 
 //redirect HTTP request handler
