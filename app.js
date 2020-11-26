@@ -7,7 +7,7 @@ app.use(express.static("public"));
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/index", (req, res) => {
-    return res.sendFile(__dirname + "/public/html/index.html");
+    return res.sendFile(__dirname + "/public/html/index/index.html");
 });
 
 //redirect HTTP request handler
@@ -34,6 +34,7 @@ app.get("/register", (req, res) => {
 app.post("/formtest", (req, res) => {
     return res.send(req.body);
 });
+
 
 //port sættes til 9090 hvis den ikke allerede er defineret i .env
 const port = process.env.PORT || 9090;
