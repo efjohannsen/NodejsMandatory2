@@ -35,7 +35,6 @@ app.post("/formtest", (req, res) => {
     return res.send(req.body);
 });
 
-
 //port sættes til 9090 hvis den ikke allerede er defineret i .env
 const port = process.env.PORT || 9090;
 
