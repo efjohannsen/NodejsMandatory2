@@ -5,10 +5,16 @@ const app = express();
 //giver brugere adgang til filerne i mappen public
 app.use(express.static("public"));
 
+const authLimiter = require("./util/rateLimiter.js");
+
+app.use("/index", authLimiter);
+
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/index", (req, res) => {
     return res.sendFile(__dirname + "/public/html/index.html");
 });
+
+
 
 //redirect HTTP request handler
 app.get("/", (req, res) => {
