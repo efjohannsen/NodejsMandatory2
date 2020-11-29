@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 //giver brugere adgang til filerne i mappen public
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}))
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 
 const authLimiter = require("./util/rateLimiter.js");
