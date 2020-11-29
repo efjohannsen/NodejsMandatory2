@@ -21,25 +21,18 @@ app.use(authRoutes);
 
 const fs = require('fs');
 
-const headerPage = fs.readFileSync(__dirname + '/public/header/header.html');
-const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html');
+const indexPage = fs.readFileSync(__dirname + '/public/index/index.html');
 const page1 = fs.readFileSync(__dirname + '/public/page1/page1.html');
+const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html');
+const registerPage = fs.readFileSync(__dirname + '/public/register/register.html');
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/index", (req, res) => {
-    return res.sendFile(__dirname + "/public/html/index.html");
+    res.send(indexPage + footerPage);
 });
-
-app.get("/indexTwo", (req, res) => {
-    return res.sendFile(__dirname + "/public/html/indexTwo.html");
-});
-
-app.get("/test", (req, res) => {
-    return res.sendFile(__dirname + "/public/html/test.html")
-})
 
 app.get("/register", (req, res) => {
-    return res.sendFile(__dirname + "/public/html/register.html")
+    res.send(registerPage + footerPage);
 })
 
 app.get('/page1', authenticateToken, (req, res) => {
