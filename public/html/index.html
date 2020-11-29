@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Index page</title>
 </head>
 <body>
@@ -10,8 +11,7 @@
 
     <a href="./page1">Page 1</a>
     <a href="./page2">Page 2</a>
-    <a href="./page3">Page 3</a>   
-
+    <a href="./page3">Page 3</a>  
 
     <form action="/login" method="POST">
         <label for="username">Username:</label>
@@ -20,7 +20,21 @@
         <input type="password" id="password" name="password"><br><br>
         <input type="submit" value="Submit">
     </form>
-    
+
+    <div id="myBtn"><a href="">Click me</a></div>
+
+    <!-- log accessToken i javascript-->
+    <script>
+        window.getCookie = function(name) {
+            var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if(match) return match[2];
+        }
+        const accessToken = getCookie("accessToken");
+        console.log(accessToken)
+    </script>
+
+    <script src="./apicalls.js"></script>
+
 
     <a href="./register">Register</a>
 

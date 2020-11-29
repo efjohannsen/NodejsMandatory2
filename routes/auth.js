@@ -2,6 +2,7 @@ const router = require('express').Router();
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { request } = require('express');
 //const { response } = require('express');
 //bruges til at læse cookie der afsendes fra client
 //https://stackoverflow.com/questions/16209145/how-to-set-cookie-in-node-js-using-express-framework
@@ -38,7 +39,7 @@ router.post("/token", (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const username = req.body.username;
-        const result = await pool.execute('SELECT password FROM users WHERE username = ?', [username]);
+        const result = await pool.query('SELECT password FROM users WHERE username = ?', [username]);
         //does not exist || array empty
         if(result[0][0] === undefined || result[0][0].length == 0) {
             return res.status(403).send("Incorrect username");
@@ -52,12 +53,9 @@ router.post("/login", async (req, res) => {
             const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
             refreshTokens.push(refreshToken);
 
-            let options = { 
-                expires: new Date(Date.now() + 900000), 
-                httpOnly: false 
-            };
-            //res.cookie('name', 'geeksforgeeks', options);
-            //res.setHeader('Set-Cookie', [`accessToken=${accessToken}; Max-Age=60; httpOnly=false;`, `refreshToken=${refreshToken};httpOnly=false;`])
+            res.cookie("accessToken", accessToken, maxAge=6000)
+            //res.setHeader('Authorization', 'Bearer ' + accessToken);
+            //res.send({})
             res.json({ accessToken : accessToken, refreshToken : refreshToken})
         }
         else {
@@ -69,7 +67,7 @@ router.post("/login", async (req, res) => {
 });
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '120s' })
 }
 
 router.post("/register", async (req, res) => {

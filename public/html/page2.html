@@ -7,5 +7,12 @@
 </head>
 <body>
     This is page 2
+    <script>
+        window.getCookie = function(name) {
+            var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if(match) return match[2];
+        }
+        const accessToken = getCookie("accessToken");
+    </script>
 </body>
 </html>

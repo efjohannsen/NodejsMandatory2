@@ -5,11 +5,13 @@ const app = express();
 
 const jwt = require('jsonwebtoken');
 //giver brugere adgang til filerne i mappen public
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({extended: true}))
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
 
 const authLimiter = require("./util/rateLimiter.js");
 app.use("/index", authLimiter);
@@ -17,12 +19,18 @@ app.use("/index", authLimiter);
 const authRoutes = require("./routes/auth.js");
 app.use(authRoutes);
 
-
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/index", (req, res) => {
     return res.sendFile(__dirname + "/public/html/index.html");
 });
 
+app.get("/indexTwo", (req, res) => {
+    return res.sendFile(__dirname + "/public/html/indexTwo.html");
+});
+
+app.get("/test", (req, res) => {
+    return res.sendFile(__dirname + "/public/html/test.html")
+})
 
 app.get("/register", (req, res) => {
     return res.sendFile(__dirname + "/public/html/register.html")
