@@ -1,15 +1,25 @@
-$('#myBtn a').click(function (e){
-    alert("hello")
-    //prevents browsers default task and does not override your code.
-    e.preventDefault(); 
+//LOGIN FORM
+$("form").on("submit", function(event) {
+    event.preventDefault();
+    const formValues = $(this).serialize();
+    const url = "http://localhost:8080/login"
+    $.ajax({
+        url: url,
+        type:'POST',
+        data: formValues,
+        success : function(data){    
+            $('form').html(data);
+        },
+        error : function(data){
+            $('#showErrorHere').append('<br>' + data.statusText);
+        }
+    });
 });
+
+
+
 
 /*
-
-$('#submitLogin').submit(function ( e ) {
-    e.preventDefault();
-    console.log("GOT HERE");
-});
 
 
 window.getCookie = function(name) {

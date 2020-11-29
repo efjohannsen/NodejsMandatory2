@@ -8,8 +8,16 @@
     <title>Basic Javascript Example</title>
 </head>
 <body>
-    <div id="myBtn"><a href="">Click me</a></div>
-    <div id="output"></div>
+
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <div id="showErrorHere"></div>
     <p>This page just demonstrates including a basic JavaScript file. The JavaScript file just tells an alert box to pop up when the page loads.</p>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 

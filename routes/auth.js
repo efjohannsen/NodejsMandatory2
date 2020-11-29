@@ -55,8 +55,8 @@ router.post("/login", async (req, res) => {
 
             res.cookie("accessToken", accessToken, maxAge=6000)
             //res.setHeader('Authorization', 'Bearer ' + accessToken);
-            //res.send({})
-            res.json({ accessToken : accessToken, refreshToken : refreshToken})
+            res.send("You are now logged in");
+            //res.json({ accessToken : accessToken, refreshToken : refreshToken})
         }
         else {
             res.status(403).send("Password incorrect");
