@@ -51,9 +51,17 @@ router.post("/login", async (req, res) => {
             const user = { name: username };
             const accessToken = generateAccessToken(user);
             const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+            
+            //should be stored in db.
             refreshTokens.push(refreshToken);
 
-            res.cookie("accessToken", accessToken, maxAge=6000)
+            const options = {
+                maxAge: 15000, //15 sekunder
+                httpOnly: false 
+            }
+
+            res.cookie("accessToken", accessToken, options);
+            res.cookie("refreshToken", refreshToken);
             //res.setHeader('Authorization', 'Bearer ' + accessToken);
             res.send("You are now logged in");
             //res.json({ accessToken : accessToken, refreshToken : refreshToken})

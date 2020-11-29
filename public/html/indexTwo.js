@@ -2,7 +2,7 @@
 $("form").on("submit", function(event) {
     event.preventDefault();
     const formValues = $(this).serialize();
-    const url = "http://localhost:8080/login"
+    const url = "/login"
     $.ajax({
         url: url,
         type:'POST',
@@ -18,7 +18,7 @@ $("form").on("submit", function(event) {
 
 //Page 1 - Authorization bearer
 $('#page1 a').click(function (e){
-    var url = 'http://localhost:8080/page1';
+    var url = '/page1';
     //prevents browsers default task and does not override your code.
     e.preventDefault(); 
     $.ajax({
@@ -31,7 +31,7 @@ $('#page1 a').click(function (e){
             $('body').html(data);
         },
         error : function(data){
-            $('body').append('<br>' + data.statusText);
+            $('body').html(data.statusText);
         }
     });
 });
