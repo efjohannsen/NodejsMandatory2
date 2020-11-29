@@ -29,6 +29,7 @@ $('#page1 a').click(function (e){
         },
         success : function(data){    
             $('body').html(data);
+
         },
         error : function(data){
             $('body').html(data.statusText);
