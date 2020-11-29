@@ -3,10 +3,6 @@ const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { request } = require('express');
-//const { response } = require('express');
-//bruges til at læse cookie der afsendes fra client
-//https://stackoverflow.com/questions/16209145/how-to-set-cookie-in-node-js-using-express-framework
-//se 2. højest ratede svar.
 
 require('dotenv').config();
 
@@ -59,12 +55,9 @@ router.post("/login", async (req, res) => {
                 maxAge: 15000, //15 sekunder
                 httpOnly: false 
             }
-
             res.cookie("accessToken", accessToken, options);
             res.cookie("refreshToken", refreshToken);
-            //res.setHeader('Authorization', 'Bearer ' + accessToken);
             res.send("You are now logged in");
-            //res.json({ accessToken : accessToken, refreshToken : refreshToken})
         }
         else {
             res.status(403).send("Password incorrect");
