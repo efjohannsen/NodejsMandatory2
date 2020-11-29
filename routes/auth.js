@@ -6,8 +6,6 @@ const jwt = require('jsonwebtoken');
 //bruges til at læse cookie der afsendes fra client
 //https://stackoverflow.com/questions/16209145/how-to-set-cookie-in-node-js-using-express-framework
 //se 2. højest ratede svar.
-const cookieParser = require('cookie-parser');
-router.use(cookieParser);
 
 require('dotenv').config();
 
@@ -58,7 +56,7 @@ router.post("/login", async (req, res) => {
                 expires: new Date(Date.now() + 900000), 
                 httpOnly: false 
             };
-            res.cookie('name', 'geeksforgeeks', options);
+            //res.cookie('name', 'geeksforgeeks', options);
             //res.setHeader('Set-Cookie', [`accessToken=${accessToken}; Max-Age=60; httpOnly=false;`, `refreshToken=${refreshToken};httpOnly=false;`])
             res.json({ accessToken : accessToken, refreshToken : refreshToken})
         }
@@ -69,11 +67,6 @@ router.post("/login", async (req, res) => {
         res.send(err);
     }
 });
-
-function writeCookie(){
-    
-
-}
 
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' })

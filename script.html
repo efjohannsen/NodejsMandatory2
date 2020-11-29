@@ -7,6 +7,7 @@
 </head>
 <body>
     <script>
+        /*
         //localStorage
         localStorage.setItem("name", "Bob");
         console.log(localStorage.getItem('name'));
@@ -21,8 +22,14 @@
         document.cookie = "newName=kyle; SameSite=Lax; httpOnly=true; expires=" + new Date(2020, 10, 29).toUTCString() + "; Secure";
         //document.cookie = "test=hello; httpOnly=false"
         console.log(document.cookie)
-
-
+*/
+        
+    $.ajax({
+            url: "http://localhost:8080/page1",
+            type: 'GET',
+            // Fetch the stored token from localStorage and set in the header
+            headers: {"Authorization": localStorage.getItem('token')}
+            });
     </script>
 </body>
 </html>
