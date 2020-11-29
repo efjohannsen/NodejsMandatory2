@@ -6,5 +6,4 @@ const authLimiter = rateLimiter({
     max: 6 // limit each IP to 6 requests per windowMs
 });
 
-
 module.exports = authLimiter

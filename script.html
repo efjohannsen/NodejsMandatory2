@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //localStorage
+        localStorage.setItem("name", "Bob");
+        console.log(localStorage.getItem('name'));
+        localStorage.removeItem('name');
+
+        //session storage
+        sessionStorage.setItem('name', 'John');
+        console.log(sessionStorage.getItem('name'));
+        sessionStorage.removeItem('name');
+        
+        //cookies
+        document.cookie = "newName=kyle; SameSite=Lax; httpOnly=true; expires=" + new Date(2020, 10, 29).toUTCString() + "; Secure";
+        //document.cookie = "test=hello; httpOnly=false"
+        console.log(document.cookie)
+
+
+    </script>
+</body>
+</html>
