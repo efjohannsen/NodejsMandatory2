@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
             refreshTokens.push(refreshToken);
 
             const options = {
-                maxAge: 15000, //15 sekunder
+                maxAge: 15000, //15 sekunder bør sættes op
                 httpOnly: false 
             }
             res.cookie("accessToken", accessToken, options);
