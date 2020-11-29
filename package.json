@@ -4,7 +4,8 @@
   "description": "NodeJS Mandatory 2 assignment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon app.js"
   },
   "repository": {
     "type": "git",
