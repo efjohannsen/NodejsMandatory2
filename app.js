@@ -19,6 +19,12 @@ app.use("/index", authLimiter);
 const authRoutes = require("./routes/auth.js");
 app.use(authRoutes);
 
+const fs = require('fs');
+
+const headerPage = fs.readFileSync(__dirname + '/public/header/header.html');
+const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html');
+const page1 = fs.readFileSync(__dirname + '/public/page1/page1.html');
+
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/index", (req, res) => {
     return res.sendFile(__dirname + "/public/html/index.html");
@@ -37,7 +43,8 @@ app.get("/register", (req, res) => {
 })
 
 app.get('/page1', authenticateToken, (req, res) => {
-    res.sendFile(__dirname  + "/public/html/page1.html")
+    //res.sendFile(__dirname  + "/public/html/page1.html")
+    res.send(page1 + footerPage)
 })
 
 app.get('/page2', (req, res) => {

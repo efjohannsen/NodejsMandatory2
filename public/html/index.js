@@ -27,12 +27,12 @@ $('#page1 a').click(function (e){
         beforeSend: function(xhr) {
             xhr.setRequestHeader ("Authorization", "Bearer " + window.getCookie("accessToken"));
         },
-        success : function(data){    
+        success : function(data){
+            $('#showErrorHere').html("");    
             $('body').html(data);
-
         },
         error : function(data){
-            $('body').html(data.statusText);
+            $('#showErrorHere').html(data.statusText);
         }
     });
 });
@@ -41,13 +41,3 @@ window.getCookie = function(name) {
     var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if(match) return match[2];
 }
-
-
-/*
-
-
-window.getCookie = function(name) {
-    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if(match) return match[2];
-}
-*/
