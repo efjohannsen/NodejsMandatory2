@@ -14,6 +14,14 @@ $('#register a').click(function (e) {
     })
 })
 
+$('#logout a').click(function (e) {
+    const url = '/logout';
+    e.preventDefault();
+    alert("logged out");
+    //refresh token skal slettes på serveren
+    //fjern cookies lokalt.
+})
+
 $('#pageOne a').click(function (e){
     const url = '/pageOne';
     //prevents browsers default task and does not override your code.
@@ -29,7 +37,7 @@ $('#pageOne a').click(function (e){
         },
         error : function(data){
             updateAccessToken();
-        }
+        },
     });
 });
 
@@ -48,9 +56,8 @@ $('#sendEmail a').click(function (e){
         },
         error : function(data){
                 //try to update accesstoken with refresh token
-                if(data.statusText === 'Unauthorized') {
-                    updateAccessToken();
-                }
+                updateAccessToken();
+               
         }
     });
 });
@@ -72,7 +79,6 @@ updateAccessToken = function() {
         error : function(data){
             $('#content').html("refreshToken is not known / please register/login");
         }
-        
     })
 }
 getCookie = function(name) {

@@ -7,8 +7,9 @@ $("form").on("submit", function(event) {
         url: url,
         type:'POST',
         data: formValues,
-        success : function(data){    
+        success : function(data, status, xhr){ 
             $('#content').html(data);
+            
         },
         error : function(data){
             $('#showErrorHere').append('<br>' + data.statusText);

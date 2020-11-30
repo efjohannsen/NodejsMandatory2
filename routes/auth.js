@@ -23,7 +23,7 @@ router.post("/token", (req, res) => {
     const refreshToken = req.body.token;
     if(refreshToken == null) return res.sendStatus(401);
     if(!refreshTokens.includes(refreshToken)) {
-        res.sendStatus(403);
+        return res.sendStatus(403);
     }
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) {return res.sendStatus(403)};
@@ -34,7 +34,7 @@ router.post("/token", (req, res) => {
             httpOnly: false 
         }
         //set new access token
-        res.cookie("accessToken", accessToken, options);
+        res.cookie("accessToken", accessToken, options);       
         res.send('new access token set.')
     })
 })
