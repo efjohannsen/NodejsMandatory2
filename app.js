@@ -46,10 +46,12 @@ app.get("/register", (req, res) => {
     res.send(registerPage);
 })
 
+//page need authorization to access
 app.get('/pageOne', authenticateToken, (req, res) => {
     res.send(pageOne)
 })
 
+//page need authorization to access
 app.get('/sendEmail', authenticateToken, (req, res) => {
     res.send(sendEmailPage);
 })

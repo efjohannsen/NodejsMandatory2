@@ -59,8 +59,10 @@ getCookie = function(name) {
 updateAccessToken = function() {
     const url = '/token';
     const refreshToken = getCookie("refreshToken");
+    const userId = getCookie("userId");
     const data = {
-        "token": refreshToken
+        "token": refreshToken,
+        "userId": userId
     }
     $.ajax({
         type: 'POST',

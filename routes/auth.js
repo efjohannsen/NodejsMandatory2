@@ -17,20 +17,24 @@ const pool = mysql.createPool({
     queueLimit          : 0
 });
 
-let refreshTokens = [];
-
 //cookie optionas
 const options = {
     maxAge: 15000, //15 sekunder bør sættes op
     httpOnly: false 
 }
 
-router.post("/token", (req, res) => {
+//User can renew access access token with their refreshToken.
+router.post("/token", async (req, res) => {
     const refreshToken = req.body.token;
-    if(refreshToken == null) return res.sendStatus(401);
-    if(!refreshTokens.includes(refreshToken)) {
-        return res.status(403).send("Refresh token is not working. Login again.");
+    const userId = req.body.userId;
+    if(refreshToken == null) {
+        return res.status(401).send("Please login"); 
     }
+    const storedRefreshToken = await pool.execute('SELECT token FROM refreshTokens WHERE id = ?', [userId]);
+    //check if users given refreshToken exists in db
+    if(!storedRefreshToken[0][0].token === refreshToken){
+        return res.status(403).send("Refresh token is not working. Try Logging in again.");
+    };
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) {
             return res.status(403).send("refreshToken is not available / valid. Please register / login again");
@@ -45,25 +49,33 @@ router.post("/token", (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const username = req.body.username;
-        const result = await pool.execute('SELECT password FROM users WHERE username = ?', [username]);
+        const result = await pool.execute('SELECT id,password FROM users WHERE username = ?', [username]);
         //does not exist || array empty
         if(result[0][0] === undefined || result[0][0].length == 0) {
             return res.status(403).send("Username incorrect");
         }
+        const userId = result[0][0].id;
         const hashedPassword = result[0][0].password;
         const plainTextPassword = req.body.password;
-        if(await bcrypt.compare(plainTextPassword, hashedPassword)){
+
+        const correctPassword = await bcrypt.compare(plainTextPassword, hashedPassword);
+        if(correctPassword){
             //user authenticated here.
             const user = { name: username };
             const accessToken = generateAccessToken(user);
             const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
             
             //should be stored in db.
-            refreshTokens.push(refreshToken);
-            //test
+            //refreshTokens.push(refreshToken);
+            //delete old refreshToken
+            await pool.execute('DELETE FROM refreshTokens WHERE id = ?', [userId]);
+            //store new refreshToken in db
+            await pool.execute('INSERT INTO refreshTokens SET id = ?, token = ?', [userId, refreshToken]);
 
             res.cookie("accessToken", accessToken, options);
             res.cookie("refreshToken", refreshToken);
+            res.cookie("userId", userId)
+            res.cookie("username", username)
             return res.send("You are now logged in");
         }
         else {
