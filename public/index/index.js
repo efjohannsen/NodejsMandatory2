@@ -70,8 +70,8 @@ updateAccessToken = function() {
         success : function(data){
             $('#content').html(data);
         },
-        error : function(){
-            $('#content').html("refreshToken is not known / please register/login");
+        error : function(data){
+            $('#content').html(data.responseText);
         }
     });
 }

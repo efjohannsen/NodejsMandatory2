@@ -29,10 +29,12 @@ router.post("/token", (req, res) => {
     const refreshToken = req.body.token;
     if(refreshToken == null) return res.sendStatus(401);
     if(!refreshTokens.includes(refreshToken)) {
-        return res.sendStatus(403);
+        return res.status(403).send("Refresh token is not working. Login again.");
     }
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if(err) {return res.sendStatus(403)};
+        if(err) {
+            return res.status(403).send("refreshToken is not available / valid. Please register / login again");
+        };
         const accessToken = generateAccessToken({ name: user.name })
         //set new access token
         res.cookie("accessToken", accessToken, options);       
