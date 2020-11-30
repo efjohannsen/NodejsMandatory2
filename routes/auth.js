@@ -35,12 +35,13 @@ router.post("/token", async (req, res) => {
     if(!storedRefreshToken[0][0].token === refreshToken){
         return res.status(403).send("Refresh token is not working. Try Logging in again.");
     };
+    //very og generer ny access token.
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) {
             return res.status(403).send("refreshToken is not available / valid. Please register / login again");
         };
         const accessToken = generateAccessToken({ name: user.name })
-        //set new access token
+        //save cookie
         res.cookie("accessToken", accessToken, options);       
         res.send('new access token set.')
     })
@@ -57,7 +58,6 @@ router.post("/login", async (req, res) => {
         const userId = result[0][0].id;
         const hashedPassword = result[0][0].password;
         const plainTextPassword = req.body.password;
-
         const correctPassword = await bcrypt.compare(plainTextPassword, hashedPassword);
         if(correctPassword){
             //user authenticated here.
@@ -65,8 +65,6 @@ router.post("/login", async (req, res) => {
             const accessToken = generateAccessToken(user);
             const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
             
-            //should be stored in db.
-            //refreshTokens.push(refreshToken);
             //delete old refreshToken
             await pool.execute('DELETE FROM refreshTokens WHERE id = ?', [userId]);
             //store new refreshToken in db
