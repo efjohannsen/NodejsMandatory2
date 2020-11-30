@@ -8,12 +8,12 @@ $("form").on("submit", function(event) {
         url: url,
         type:'POST',
         data: formValues,
-        success : function(data, status, xhr){            
+        success : function(data, status, xhr){    
+            $('#showErrorHere').html("");        
             $('#content').html("Velkommen " + window.getCookie('username'));
             $('#content').append("<br>" + data);
         },
         error : function(data){
-            console.log(data);
             $('#showErrorHere').html(data.responseText);
         }
     });

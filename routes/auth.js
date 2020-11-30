@@ -70,6 +70,7 @@ router.post("/login", async (req, res) => {
             //store new refreshToken in db
             await pool.execute('INSERT INTO refreshTokens SET id = ?, token = ?', [userId, refreshToken]);
 
+            //Store cookies in browser
             res.cookie("accessToken", accessToken, options);
             res.cookie("refreshToken", refreshToken);
             res.cookie("userId", userId)
