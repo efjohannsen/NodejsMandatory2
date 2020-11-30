@@ -7,10 +7,10 @@ $("form").on("submit", function(event) {
         type:'POST',
         data: formValues,
         success : function(data){    
-            $('body').html(data);
+            $('#content').html(data);
         },
         error : function(data){
-            $('#showErrorHere').append('<br>' + data.statusText);
+            $('#showErrorHere').html(data.responseText);
         }
     });
 });

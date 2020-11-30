@@ -85,7 +85,7 @@ router.post("/register", async (req, res) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(plainTextPassword, saltRounds);
         await pool.execute('INSERT INTO users SET username = ?, password = ?, email = ?', [username, hashedPassword, email]);
-        return res.redirect("/index");
+        return res.redirect("/login");
     } catch (err) {
         return res.status(500).send(err);
     }
