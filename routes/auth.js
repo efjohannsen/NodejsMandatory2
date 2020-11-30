@@ -46,7 +46,7 @@ router.post("/login", async (req, res) => {
         const result = await pool.query('SELECT password FROM users WHERE username = ?', [username]);
         //does not exist || array empty
         if(result[0][0] === undefined || result[0][0].length == 0) {
-            return res.status(403).send("Incorrect username");
+            return res.status(403).send("Username incorrect");
         }
         const hashedPassword = result[0][0].password;
         const plainTextPassword = req.body.password;
@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
 
             res.cookie("accessToken", accessToken, options);
             res.cookie("refreshToken", refreshToken);
-            res.send("You are now logged in");
+            return res.send("You are now logged in");
         }
         else {
             res.status(403).send("Password incorrect");

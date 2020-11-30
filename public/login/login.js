@@ -9,10 +9,10 @@ $("form").on("submit", function(event) {
         data: formValues,
         success : function(data, status, xhr){ 
             $('#content').html(data);
-            
         },
         error : function(data){
-            $('#showErrorHere').append('<br>' + data.statusText);
+            console.log(data);
+            $('#showErrorHere').html(data.responseText);
         }
     });
 });
