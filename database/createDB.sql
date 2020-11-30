@@ -10,9 +10,19 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
+CREATE TABLE refreshTokens ( 
+  token CHAR(61) UNIQUE,
+  id int(11),
+  FOREIGN KEY (id) REFERENCES users(id)
+);
+
 INSERT INTO users (id, username, password) VALUES
 (1, 'John', '123456'),
 (2, 'Jonas', '123');
+
+
+insert into refreshTokens (id, token) VALUES (15, "someToken");
+
 
 select * from users;  
 
