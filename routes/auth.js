@@ -21,7 +21,7 @@ let refreshTokens = [];
 
 //cookie optionas
 const options = {
-    maxAge: 15000, //15 sekunder bør sættes op
+    maxAge: 5000, //15 sekunder bør sættes op
     httpOnly: false 
 }
 
