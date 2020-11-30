@@ -1,25 +1,6 @@
-//LOGIN FORM ON SUBMIT
-$("form").on("submit", function(event) {
-    event.preventDefault();
-    const formValues = $(this).serialize();
-    const url = "/login"
-    $.ajax({
-        url: url,
-        type:'POST',
-        data: formValues,
-        success : function(data){    
-            $('#content').html(data);
-        },
-        error : function(data){
-            $('#showErrorHere').append('<br>' + data.statusText);
-        }
-    });
+$(document).ready(function(){
+    $('#navigation').load('../navigation/nav.html');
 });
-
-//
-//$(document).ready(function(){
-//    $('#navigation').load('../navigation/nav.html');
-//});
 
 //Page 1 - Authorization bearer
 $('#pageOne a').click(function (e){
@@ -33,16 +14,18 @@ $('#pageOne a').click(function (e){
             xhr.setRequestHeader ("Authorization", "Bearer " + window.getCookie("accessToken"));
         },
         success : function(data){
+            $('#showErrorHere').html("");
             $('#content').html("");
             $('#content').html(data);
         },
         error : function(data){
-            $('#content').html(data.statusText);
+            $('#showErrorHere').html(data.statusText);
         }
     });
 });
 
 $('#sendEmail a').click(function (e){
+    alert("Send email clicked");
     var url = '/sendEmail';
     //prevents browsers default task and does not override your code.
     e.preventDefault(); 
@@ -53,11 +36,11 @@ $('#sendEmail a').click(function (e){
             xhr.setRequestHeader ("Authorization", "Bearer " + window.getCookie("accessToken"));
         },
         success : function(data){
-            $('#content').html("");
-            $('#content').html(data);
+            $('#showErrorHere').html("");
+            $('body').html(data);
         },
         error : function(data){
-            $('#content').html(data.statusText);
+            $('#showErrorHere').html(data.statusText);
         }
     });
 });

@@ -27,13 +27,11 @@ const { all } = require("./routes/auth.js");
 
 const headerPage = fs.readFileSync(__dirname + '/public/header/header.html').toString();
 const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html').toString();
-
 const indexPage = fs.readFileSync(__dirname + '/public/index/index.html').toString();
-const page1 = fs.readFileSync(__dirname + '/public/page1/page1.html').toString();
+const pageOne = fs.readFileSync(__dirname + '/public/pageOne/pageOne.html').toString();
 const registerPage = fs.readFileSync(__dirname + '/public/register/register.html').toString();
 const sendEmailpage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html').toString();
-
-//const navigationBar = fs.readFileSync(__dirname + '/public/navigation/nav.html');
+//const navigationBar = fs.readFileSync(__dirname + '/public/navigation/nav.html').toString();
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/", (req, res) => {
@@ -41,17 +39,17 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-    res.send(registerPage + footerPage);
+    res.send(registerPage);
 })
 
-app.get('/page1', authenticateToken, (req, res) => {
-    //res.sendFile(__dirname  + "/public/html/page1.html")
-    res.send(page1 + footerPage)
+app.get('/pageOne', authenticateToken, (req, res) => {
+    res.send(pageOne)
 })
 
 app.get('/sendEmail', authenticateToken, (req, res) => {
-    res.send(sendEmailpage + footerPage);
+    res.send(sendEmailpage);
 })
+
 /*
 app.get('/navigation', (req, res) => {
     res.send(navigationBar);
