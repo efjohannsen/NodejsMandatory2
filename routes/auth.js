@@ -45,7 +45,7 @@ router.post("/token", (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const username = req.body.username;
-        const result = await pool.query('SELECT password FROM users WHERE username = ?', [username]);
+        const result = await pool.execute('SELECT password FROM users WHERE username = ?', [username]);
         //does not exist || array empty
         if(result[0][0] === undefined || result[0][0].length == 0) {
             return res.status(403).send("Username incorrect");
@@ -60,6 +60,7 @@ router.post("/login", async (req, res) => {
             
             //should be stored in db.
             refreshTokens.push(refreshToken);
+            //test
 
             res.cookie("accessToken", accessToken, options);
             res.cookie("refreshToken", refreshToken);
