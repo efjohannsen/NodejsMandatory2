@@ -2,7 +2,6 @@ $('#login a').click(function (e) {
     var url = '/login';
     e.preventDefault();
     $.get(url, function(data) {
-        $('#content').html("");
         $('#content').html(data);
     })
 })
@@ -19,7 +18,6 @@ $('#pageOne a').click(function (e){
             xhr.setRequestHeader ("Authorization", "Bearer " + window.getCookie("accessToken"));
         },
         success : function(data){
-            $('#content').html("");
             $('#content').html(data);
         },
         error : function(data){
@@ -39,7 +37,6 @@ $('#sendEmail a').click(function (e){
             xhr.setRequestHeader ("Authorization", "Bearer " + getCookie("accessToken"));
         },
         success : function(data){
-            $('#content').html("");
             $('#content').html(data);
         },
         error : function(data){
