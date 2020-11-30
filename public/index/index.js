@@ -24,27 +24,17 @@ $('#logout a').click(function (e) {
 
 $('#pageOne a').click(function (e){
     const url = '/pageOne';
-    //prevents browsers default task and does not override your code.
     e.preventDefault(); 
-    $.ajax({
-        url: url,
-        type:'GET',
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader ("Authorization", "Bearer " + window.getCookie("accessToken"));
-        },
-        success : function(data){
-            $('#content').html(data);
-        },
-        error : function(data){
-            updateAccessToken();
-        },
-    });
+    getAuthPage(url); 
 });
 
 $('#sendEmail a').click(function (e){
     const url = '/sendEmail';
-    //prevents browsers default task and does not override your code.
     e.preventDefault(); 
+    getAuthPage(url);
+});
+
+function getAuthPage(url) {
     $.ajax({
         url: url,
         type:'GET',
@@ -54,13 +44,17 @@ $('#sendEmail a').click(function (e){
         success : function(data){
             $('#content').html(data);
         },
-        error : function(data){
+        error : function(){
                 //try to update accesstoken with refresh token
-                updateAccessToken();
-               
+                updateAccessToken();            
         }
     });
-});
+}
+
+getCookie = function(name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if(match) return match[2];
+}
 
 updateAccessToken = function() {
     const url = '/token';
@@ -76,12 +70,8 @@ updateAccessToken = function() {
         success : function(data){
             $('#content').html(data);
         },
-        error : function(data){
+        error : function(){
             $('#content').html("refreshToken is not known / please register/login");
         }
-    })
-}
-getCookie = function(name) {
-    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if(match) return match[2];
+    });
 }
