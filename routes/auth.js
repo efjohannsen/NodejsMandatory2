@@ -30,7 +30,7 @@ router.post("/token", (req, res) => {
         const accessToken = generateAccessToken({ name: user.name })
         //cookie options
         const options = {
-            maxAge: 15000, //5 sekunder bør sættes op
+            maxAge: 5000, //5 sekunder bør sættes op
             httpOnly: false 
         }
         //set new access token
