@@ -2,6 +2,8 @@
 const express = require("express");
 //instancierer express modulet
 const app = express();
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 //giver brugere adgang til filerne i mappen public
@@ -10,6 +12,7 @@ app.use(express.urlencoded({extended: true}))
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+//tror bodyparser er inkluderet i Express og følder med i URL-encoded
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
@@ -63,6 +66,55 @@ function authenticateToken(req, res, next) {
     });
     
 };
+//Maybe move into seperate file?
+app.post('/send', async(req, res) => {
+    const getEmail = req.body.email;
+    const getSubject = req.body.subject;    
+    const getContent = req.body.content; 
+
+    const output = `
+        <h3>Contact Information</h3>
+        <ul>
+            <li>From: ${req.body.email}</li>
+            <li>Name: ${req.body.name}</li>
+            <li>Subject: ${req.body.subject}</li>
+        </ul>
+        <h3>Content</h3>
+        <p>${req.body.content}</p>
+        `;
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        service: 'gmail',
+        secure: false, 
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD
+        }, 
+        tls: {
+            rejectUnauthorized:false
+        }
+    });
+
+    const mailOptions = {
+        from: getEmail,
+        to: process.env.EMAIL,
+        subject: getSubject, 
+        content: getContent,
+        html: output
+    };
+
+    transporter.sendMail(mailOptions, (err, data) => {
+        if(err){
+            console.log(`Error: ${err}`);
+            res.status(401).send();
+        } else {
+            res.status(200).send('Email sent');
+        }
+    });
+
+    console.log(req.body);
+});
 
 app.get("/*", (req, res) => {
     return res.redirect("/index");

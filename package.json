@@ -26,6 +26,7 @@
     "express-rate-limit": "^5.2.3",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.16",
     "nodemon": "^2.0.6"
   }
 }
