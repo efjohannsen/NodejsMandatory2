@@ -55,13 +55,6 @@ app.get('/sendEmail', authenticateToken, (req, res) => {
     res.send(sendEmailPage);
 })
 
-
-/*
-app.get('/navigation', (req, res) => {
-    res.send(navigationBar);
-})
-*/
-
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
