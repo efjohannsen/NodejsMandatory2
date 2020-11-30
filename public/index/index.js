@@ -36,7 +36,7 @@ $('#sendEmail a').click(function (e){
         url: url,
         type:'GET',
         beforeSend: function(xhr) {
-            xhr.setRequestHeader ("Authorization", "Bearer " + window.getCookie("accessToken"));
+            xhr.setRequestHeader ("Authorization", "Bearer " + getCookie("accessToken"));
         },
         success : function(data){
             $('#content').html("");
@@ -48,7 +48,7 @@ $('#sendEmail a').click(function (e){
     });
 });
 
-window.getCookie = function(name) {
+getCookie = function(name) {
     var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if(match) return match[2];
 }
