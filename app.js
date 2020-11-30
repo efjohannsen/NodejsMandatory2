@@ -24,11 +24,11 @@ app.use(authRoutes);
 
 const fs = require('fs');
 
-const indexPage = fs.readFileSync(__dirname + '/public/index/index.html');
-const page1 = fs.readFileSync(__dirname + '/public/page1/page1.html');
-const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html');
-const registerPage = fs.readFileSync(__dirname + '/public/register/register.html');
-const sendEmailpage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html');
+const indexPage = fs.readFileSync(__dirname + '/public/index/index.html').toString();
+const page1 = fs.readFileSync(__dirname + '/public/page1/page1.html').toString();
+const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html').toString();
+const registerPage = fs.readFileSync(__dirname + '/public/register/register.html').toString();
+const sendEmailpage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html').toString();
 //const navigationBar = fs.readFileSync(__dirname + '/public/navigation/nav.html');
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
