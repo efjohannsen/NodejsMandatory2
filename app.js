@@ -32,7 +32,6 @@ const pageOne = fs.readFileSync(__dirname + '/public/pageOne/pageOne.html').toSt
 const registerPage = fs.readFileSync(__dirname + '/public/register/register.html').toString();
 const sendEmailPage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html').toString();
 const loginPage = fs.readFileSync(__dirname + '/public/login/login.html').toString();
-//const navigationBar = fs.readFileSync(__dirname + '/public/navigation/nav.html').toString();
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/", (req, res) => {
