@@ -28,7 +28,14 @@ router.post("/token", (req, res) => {
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) {return res.sendStatus(403)};
         const accessToken = generateAccessToken({ name: user.name })
-        res.json({accessToken : accessToken})
+        //cookie options
+        const options = {
+            maxAge: 15000, //5 sekunder bør sættes op
+            httpOnly: false 
+        }
+        //set new access token
+        res.cookie("accessToken", accessToken, options);
+        res.send('new access token set.')
     })
 })
 
