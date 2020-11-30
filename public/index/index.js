@@ -6,7 +6,14 @@ $('#login a').click(function (e) {
     })
 })
 
-//Page 1 - Authorization bearer
+$('#register a').click(function (e) {
+    var url = '/register';
+    e.preventDefault();
+    $.get(url, function(data) {
+        $('#content').html(data);
+    })
+})
+
 $('#pageOne a').click(function (e){
     var url = '/pageOne';
     //prevents browsers default task and does not override your code.
