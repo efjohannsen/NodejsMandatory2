@@ -30,13 +30,18 @@ const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html').toS
 const indexPage = fs.readFileSync(__dirname + '/public/index/index.html').toString();
 const pageOne = fs.readFileSync(__dirname + '/public/pageOne/pageOne.html').toString();
 const registerPage = fs.readFileSync(__dirname + '/public/register/register.html').toString();
-const sendEmailpage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html').toString();
+const sendEmailPage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html').toString();
+const loginPage = fs.readFileSync(__dirname + '/public/login/login.html').toString();
 //const navigationBar = fs.readFileSync(__dirname + '/public/navigation/nav.html').toString();
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/", (req, res) => {
     return res.send(headerPage + indexPage + footerPage);
 });
+
+app.get("/login", (req, res) => {
+    return res.send(loginPage);
+})
 
 app.get("/register", (req, res) => {
     res.send(registerPage);
@@ -47,8 +52,9 @@ app.get('/pageOne', authenticateToken, (req, res) => {
 })
 
 app.get('/sendEmail', authenticateToken, (req, res) => {
-    res.send(sendEmailpage);
+    res.send(sendEmailPage);
 })
+
 
 /*
 app.get('/navigation', (req, res) => {
