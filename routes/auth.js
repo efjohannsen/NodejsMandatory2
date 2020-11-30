@@ -19,6 +19,12 @@ const pool = mysql.createPool({
 
 let refreshTokens = [];
 
+//cookie optionas
+const options = {
+    maxAge: 15000, //15 sekunder bør sættes op
+    httpOnly: false 
+}
+
 router.post("/token", (req, res) => {
     const refreshToken = req.body.token;
     if(refreshToken == null) return res.sendStatus(401);
@@ -28,11 +34,6 @@ router.post("/token", (req, res) => {
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) {return res.sendStatus(403)};
         const accessToken = generateAccessToken({ name: user.name })
-        //cookie options
-        const options = {
-            maxAge: 5000, //5 sekunder bør sættes op
-            httpOnly: false 
-        }
         //set new access token
         res.cookie("accessToken", accessToken, options);       
         res.send('new access token set.')
@@ -58,10 +59,6 @@ router.post("/login", async (req, res) => {
             //should be stored in db.
             refreshTokens.push(refreshToken);
 
-            const options = {
-                maxAge: 15000, //15 sekunder bør sættes op
-                httpOnly: false 
-            }
             res.cookie("accessToken", accessToken, options);
             res.cookie("refreshToken", refreshToken);
             res.send("You are now logged in");
