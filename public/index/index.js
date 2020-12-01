@@ -7,7 +7,6 @@ $('#login a').click(function (e) {
     });
 });
 
-
 $('#register a').click(function (e) {
     const url = '/register';
     e.preventDefault();
