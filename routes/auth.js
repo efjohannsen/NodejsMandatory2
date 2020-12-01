@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
             const accessToken = generateAccessToken(user);
             const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
             
-            //delete old refreshToken if it
+            //delete old refreshToken if it exists
             await pool.execute('DELETE FROM refreshTokens WHERE id = ?', [userId]);
             //store new refreshToken in db
             await pool.execute('INSERT INTO refreshTokens SET id = ?, token = ?', [userId, refreshToken]);
