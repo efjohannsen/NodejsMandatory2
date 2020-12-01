@@ -1,35 +1,37 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-</head>
-    
-    <div id="login"><a href="">Login</a></div>
-    <div id="pageOne"><a href="">Page One</a></div>
-    <div id="sendEmail"><a href="">Send email</a></div>
-    <div id="register"><a href="">Register</a></div>
-    <div id="logout"><a href="">Logout</a></div>
-    <div id="contactForm"><a href="">Contact</a></div>
 
-    <hr>
-    <div id=content></div>
-    
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Mandatory II</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active" id="login">
+            <a class="nav-link">Login</a>
+        </li>
+        <li class="nav-item" id="register">
+            <a class="nav-link">Register</a>
+        </li>
+        <li class="nav-item" id="pageOne">
+            <a class="nav-link">Page One</a>
+        </li>
+          <li class="nav-item" id="logout">
+            <a class="nav-link">Logout</a>
+        </li>
+        <li class="nav-item"id="contactForm"></li>
+            <a class="nav-link">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <hr>
+  <div id=content></div>
+  
 
 <div id="showErrorHere"></div>
 <script type="text/javascript" src="/index/index.js"></script>
 
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-<script>
-window.cookieconsent.initialise({
-  "palette": {
-    "popup": {
-      "background": "#252e39"
-    },
-    "button": {
-      "background": "#14a7d0"
-    }
-  },
-  "theme": "classic"
-});
-</script>
 </body>

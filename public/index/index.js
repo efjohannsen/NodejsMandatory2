@@ -1,10 +1,12 @@
+
 $('#login a').click(function (e) {
     const url = '/login';
     e.preventDefault();
     $.get(url, function(data) {
         $('#content').html(data);
-    })
-})
+    });
+});
+
 
 $('#register a').click(function (e) {
     const url = '/register';

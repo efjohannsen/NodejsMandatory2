@@ -55,12 +55,6 @@ app.get('/pageOne', authenticateToken, (req, res) => {
     res.send(pageOne);
 })
 
-//page need authorization to access
-app.get('/sendEmail', authenticateToken, (req, res) => {
-    res.send(sendEmailPage);
-})
-
-//page need authorization to access
 app.get('/contactForm', (req, res) => {
     console.log(contactForm);
     res.send(contactForm);
