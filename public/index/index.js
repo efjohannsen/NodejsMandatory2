@@ -28,11 +28,14 @@ $('#pageOne a').click(function (e){
     getAuthPage(url); 
 });
 
-$('#sendEmail a').click(function (e){
-    const url = '/sendEmail';
-    e.preventDefault(); 
-    getAuthPage(url);
+$('#contactForm a').click(function (e){
+    e.preventDefault();
+    const url = '/contactForm';
+    $.get(url, function(data) {
+        $('#content').html(data);
+    });
 });
+
 
 function getAuthPage(url) {
     $.ajax({

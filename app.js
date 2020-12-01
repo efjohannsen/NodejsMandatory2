@@ -23,15 +23,15 @@ const authRoutes = require("./routes/auth.js");
 app.use(authRoutes);
 
 const fs = require('fs');
-const { all } = require("./routes/auth.js");
 
 const headerPage = fs.readFileSync(__dirname + '/public/header/header.html').toString();
 const footerPage = fs.readFileSync(__dirname + '/public/footer/footer.html').toString();
 const indexPage = fs.readFileSync(__dirname + '/public/index/index.html').toString();
 const pageOne = fs.readFileSync(__dirname + '/public/pageOne/pageOne.html').toString();
 const registerPage = fs.readFileSync(__dirname + '/public/register/register.html').toString();
-const sendEmailPage = fs.readFileSync(__dirname + '/public/sendEmail/sendEmail.html').toString();
 const loginPage = fs.readFileSync(__dirname + '/public/login/login.html').toString();
+const contactForm = fs.readFileSync(__dirname + '/public/contact/contactForm.html').toString();
+
 
 //HTTP request handlers for alle endpoints som vores side skal håndtere
 app.get("/", (req, res) => {
@@ -48,12 +48,18 @@ app.get("/register", (req, res) => {
 
 //page need authorization to access
 app.get('/pageOne', authenticateToken, (req, res) => {
-    res.send(pageOne)
+    res.send(pageOne);
 })
 
 //page need authorization to access
 app.get('/sendEmail', authenticateToken, (req, res) => {
     res.send(sendEmailPage);
+})
+
+//page need authorization to access
+app.get('/contactForm', (req, res) => {
+    console.log(contactForm);
+    res.send(contactForm);
 })
 
 function authenticateToken(req, res, next) {
@@ -69,7 +75,7 @@ function authenticateToken(req, res, next) {
     
 };
 //Maybe move into seperate file?
-app.post('/send', async(req, res) => {
+app.post('/contactForm', (req, res) => {
     const getEmail = req.body.email;
     const getSubject = req.body.subject;    
     const getContent = req.body.content; 
@@ -109,7 +115,7 @@ app.post('/send', async(req, res) => {
     transporter.sendMail(mailOptions, (err, data) => {
         if(err){
             console.log(`Error: ${err}`);
-            res.status(401).send();
+            res.status(401).send('Email not sent');
         } else {
             res.status(200).send('Email sent');
         }
