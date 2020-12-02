@@ -56,7 +56,6 @@ app.get('/pageOne', authenticateToken, (req, res) => {
 })
 
 app.get('/contactForm', (req, res) => {
-    console.log(contactForm);
     res.send(contactForm);
 })
 
