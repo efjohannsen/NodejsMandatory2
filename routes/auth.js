@@ -18,8 +18,13 @@ const pool = mysql.createPool({
 });
 
 //cookie optionas
-const options = {
-    maxAge: 15000, //15 sekunder bør sættes op
+const accessTokenOptions = {
+    maxAge: 30000, //30 sekunder bør sættes op
+    httpOnly: false 
+}
+
+const refreshTokenOptions = {
+    maxAge: 120000, //120 sekunder bør sættes op
     httpOnly: false 
 }
 
@@ -42,7 +47,7 @@ router.post("/token", async (req, res) => {
         };
         const accessToken = generateAccessToken({ name: user.name })
         //save cookie
-        res.cookie("accessToken", accessToken, options);       
+        res.cookie("accessToken", accessToken, accessTokenOptions);       
         res.send('new access token set.')
     })
 })
@@ -71,8 +76,8 @@ router.post("/login", async (req, res) => {
             await pool.execute('INSERT INTO refreshTokens SET id = ?, token = ?', [userId, refreshToken]);
 
             //Store cookies in browser
-            res.cookie("accessToken", accessToken, options);
-            res.cookie("refreshToken", refreshToken);
+            res.cookie("accessToken", accessToken, accessTokenOptions);
+            res.cookie("refreshToken", refreshToken, refreshTokenOptions);
             res.cookie("userId", userId)
             res.cookie("username", username)
             return res.send("You are now logged in");
@@ -103,8 +108,20 @@ router.post("/register", async (req, res) => {
     }
 });
 
-router.get("/logout", (req, res) => {
-    return res.status(501).send();
+router.post("/logout", async (req, res) => {
+
+    try {
+        const refreshToken = req.body.refreshToken;
+        //Sæt cookies på client.
+        res.cookie("accessToken", "");
+        res.cookie("refreshToken", "");
+        //delete old refreshToken if it exists
+        await pool.execute('DELETE FROM refreshTokens WHERE token = ?', [refreshToken]);
+        return res.send("you have been loged out");
+
+    }catch(err) {
+        return res.status(500).send(err);
+    }
 });
 
 module.exports = router;

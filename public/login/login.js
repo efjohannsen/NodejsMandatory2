@@ -2,6 +2,7 @@
 $("form").on("submit", function(event) {
     event.preventDefault();
     const formValues = $(this).serialize();
+    console.log(formValues);
     const url = "/login"
     
     $.ajax({

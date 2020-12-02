@@ -16,11 +16,21 @@ $('#register a').click(function (e) {
 })
 
 $('#logout a').click(function (e) {
-    const url = '/logout';
     e.preventDefault();
-    alert("logged out");
-    //refresh token skal slettes på serveren
-    //fjern cookies lokalt.
+    const url = '/logout';
+    const data = `refreshToken=${getCookie("refreshToken")}`;
+    $.ajax({
+        url: url,
+        type:'POST',
+        data: data,
+        success : function(data, status, xhr){   
+            $('#content').html(data)      
+        },
+        error : function(data){
+            $('#content').html(data);
+        }
+    });
+    
 })
 
 $('#pageOne a').click(function (e){
@@ -36,7 +46,6 @@ $('#contactForm a').click(function (e){
         $('#content').html(data);
     });
 });
-
 
 function getAuthPage(url) {
     $.ajax({
