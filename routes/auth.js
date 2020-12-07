@@ -86,7 +86,7 @@ router.post("/login", async (req, res) => {
             res.status(403).send("Password incorrect");
         }               
     } catch (err) {
-        res.send(err);
+        res.status(500).send(err);
     }
 });
 
